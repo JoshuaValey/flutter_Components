@@ -16,27 +16,47 @@ class HomePage extends StatelessWidget {
 }
 
 Widget _lista() {
-  //imprimir en el Debug Console.
-  //print(menuProvider.opciones);
-  menuProvider.cargarData().then((opciones) {
-    print('_lista');
-    print(opciones);
-  });
+  //FutureBuilder.
 
-//No meter el metodo de crar listview en el future para evitar
-//que la app tarde en retornarla
-  return ListView(
-    children: _listaItems(),
+  return FutureBuilder(
+//El future: debe estar enlazada a lo que estamos esperando. Osea el Future (cargarData)
+    future: menuProvider.cargarData(),
+//La informacion que tendra por defecto mientras no se resuelve el future.
+    initialData: [],
+    //
+    builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapShot) {
+      //El Widget se dibuja con la data que viene del Future.
+      return ListView(
+        //mandamos la data del future a la lista de intems
+        children: _listaItems(snapShot.data),
+      );
+    },
   );
+
+  /*return ListView(
+    children: _listaItems(),
+  );*/
 }
 
-_listaItems() {
-  return [
-    ListTile(title: Text("Uno")),
-    Divider(),
-    ListTile(title: Text("Uno")),
-    Divider(),
-    ListTile(title: Text("Uno")),
-    Divider(),
-  ];
+List<Widget> _listaItems(List<dynamic> data) {
+  final List<Widget> opciones = [];
+
+  data.forEach((opt) {
+    final widgetTemp = ListTile(
+      //'texto' viene del json
+      title: Text(opt['texto']),
+      leading: Icon(
+        Icons.access_alarm,
+        color: Colors.blueAccent,
+      ),
+      trailing: Icon(
+        Icons.keyboard_arrow_right,
+        color: Colors.blueAccent,
+      ),
+      onTap: () {},
+    );
+
+    opciones..add(widgetTemp)..add(Divider());
+  });
+  return opciones;
 }
