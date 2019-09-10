@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_components/src/pages/alert_page.dart';
+import 'package:flutter_components/src/pages/avatar_page.dart';
 import 'dart:core';
 
 import 'package:flutter_components/src/providers/menu_provider.dart';
@@ -29,7 +31,7 @@ Widget _lista() {
       //El Widget se dibuja con la data que viene del Future.
       return ListView(
         //mandamos la data del future a la lista de intems
-        children: _listaItems(snapShot.data),
+        children: _listaItems(snapShot.data, context),
       );
     },
   );
@@ -38,7 +40,7 @@ Widget _lista() {
 ///Metodo List<Widget> _listaItems.
 ///Parametros: List<dynamic> data.
 ///Retorno: List<Widget> opciones.
-List<Widget> _listaItems(List<dynamic> data) {
+List<Widget> _listaItems(List<dynamic> data, BuildContext context) {
   final List<Widget> opciones = [];
 
   data.forEach((opt) {
@@ -50,7 +52,13 @@ List<Widget> _listaItems(List<dynamic> data) {
         Icons.keyboard_arrow_right,
         color: Colors.blueAccent,
       ),
-      onTap: () {},
+      onTap: () {
+        //navegacion entre paginas
+        //ruta
+        final route = MaterialPageRoute(builder: (context) => AlertPage());
+        //Navegacion
+        Navigator.push(context, route);
+      },
     );
 
     opciones..add(widgetTemp)..add(Divider());
