@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:core';
 
 import 'package:flutter_components/src/providers/menu_provider.dart';
+import 'package:flutter_components/src/utils/icono_string_util.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -44,10 +45,7 @@ List<Widget> _listaItems(List<dynamic> data) {
     final widgetTemp = ListTile(
       //'texto' viene del json
       title: Text(opt['texto']),
-      leading: Icon(
-        Icons.access_alarm,
-        color: Colors.blueAccent,
-      ),
+      leading: getIcon(opt['icon']),
       trailing: Icon(
         Icons.keyboard_arrow_right,
         color: Colors.blueAccent,
