@@ -15,9 +15,9 @@ class HomePage extends StatelessWidget {
   }
 }
 
+///Metodo Widget _lista() que retorna un ListView dentro de un futureBuilder.
 Widget _lista() {
   //FutureBuilder.
-
   return FutureBuilder(
 //El future: debe estar enlazada a lo que estamos esperando. Osea el Future (cargarData)
     future: menuProvider.cargarData(),
@@ -32,12 +32,11 @@ Widget _lista() {
       );
     },
   );
-
-  /*return ListView(
-    children: _listaItems(),
-  );*/
 }
 
+///Metodo List<Widget> _listaItems.
+///Parametros: List<dynamic> data.
+///Retorno: List<Widget> opciones.
 List<Widget> _listaItems(List<dynamic> data) {
   final List<Widget> opciones = [];
 
