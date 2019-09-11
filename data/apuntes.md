@@ -47,3 +47,5 @@ Navigator.pushNamed(context, 'rutaString');
         'avatar': (BuildContext context) => AvatarPage(),
       },
 ```
+
+* Cuando se llama a una ruta no definida en el "routes: " se llama a la propiedad "onGenerataRoute: "
