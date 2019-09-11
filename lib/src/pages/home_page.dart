@@ -53,11 +53,9 @@ List<Widget> _listaItems(List<dynamic> data, BuildContext context) {
         color: Colors.blueAccent,
       ),
       onTap: () {
-        //navegacion entre paginas
-        //ruta
-        final route = MaterialPageRoute(builder: (context) => AlertPage());
-        //Navegacion
-        Navigator.push(context, route);
+        //La ruta pasa como string, el cual lo tenemos en el
+        //Json que esta referenciado por el opt.
+        Navigator.pushNamed(context, opt['ruta']);
       },
     );
 
