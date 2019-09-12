@@ -9,10 +9,40 @@ class CardPage extends StatelessWidget {
         padding: EdgeInsets.all(10.0),
         children: <Widget>[
           _cardTipo1(),
+          SizedBox(height: 15.0),
+          _cardTipo2(),
         ],
       ),
     );
   }
+}
+
+Widget _cardTipo2() {
+  return Card(
+    child: Column(
+      children: <Widget>[
+        //FadeInImage ofrece un placeHolder
+        FadeInImage(
+          image: NetworkImage(
+              "http://hdqwalls.com/wallpapers/anime-cityscape-landscape-scenery-5k-r6.jpg"),
+          //placeholder es una imagen que debe estar fisicamente en el dispositivo.
+          //para que carge al instante de dibujarse el widget.
+          placeholder: AssetImage('assets/jar-loading.gif'),
+          fadeInDuration: Duration(milliseconds: 200),
+          height: 200.0,
+          fit: BoxFit.cover,
+        ),
+        /*Image(
+          image: NetworkImage(
+              "http://hdqwalls.com/wallpapers/anime-cityscape-landscape-scenery-5k-r6.jpg"),
+        ),*/
+        Container(
+          padding: EdgeInsets.all(10.0),
+          child: Text('No tengo idea de que poner'),
+        )
+      ],
+    ),
+  );
 }
 
 Widget _cardTipo1() {
