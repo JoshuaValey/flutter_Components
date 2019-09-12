@@ -11,6 +11,23 @@ class CardPage extends StatelessWidget {
           _cardTipo1(),
           SizedBox(height: 15.0),
           _cardTipo2(),
+          SizedBox(height: 15.0),
+          _cardTipo1(),
+          SizedBox(height: 15.0),
+          _cardTipo2(),
+          SizedBox(height: 15.0),
+          _cardTipo1(),
+          SizedBox(height: 15.0),
+          _cardTipo2(),
+          SizedBox(height: 15.0),
+          _cardTipo1(),
+          SizedBox(height: 15.0),
+          _cardTipo2(),
+          SizedBox(height: 15.0),
+          _cardTipo1(),
+          SizedBox(height: 15.0),
+          _cardTipo2(),
+          SizedBox(height: 15.0),
         ],
       ),
     );
@@ -18,7 +35,9 @@ class CardPage extends StatelessWidget {
 }
 
 Widget _cardTipo2() {
-  return Card(
+  final card = Container(
+    //"Que nada se salga" de los bordes del card"
+    //clipBehavior: Clip.antiAlias,
     child: Column(
       children: <Widget>[
         //FadeInImage ofrece un placeHolder
@@ -32,10 +51,6 @@ Widget _cardTipo2() {
           height: 200.0,
           fit: BoxFit.cover,
         ),
-        /*Image(
-          image: NetworkImage(
-              "http://hdqwalls.com/wallpapers/anime-cityscape-landscape-scenery-5k-r6.jpg"),
-        ),*/
         Container(
           padding: EdgeInsets.all(10.0),
           child: Text('No tengo idea de que poner'),
@@ -43,10 +58,31 @@ Widget _cardTipo2() {
       ],
     ),
   );
+
+  return Container(
+    decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30.0),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 10.0,
+            spreadRadius: 2.0,
+            offset: Offset(2.0, 10.0),
+          )
+        ]),
+    //Corta lo que sea que se salga del contenedor
+    child: ClipRRect(
+      child: card,
+      borderRadius: BorderRadius.circular(30.0),
+    ),
+  );
 }
 
 Widget _cardTipo1() {
   return Card(
+    elevation: 10.0,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
     child: Column(
       children: <Widget>[
         ListTile(

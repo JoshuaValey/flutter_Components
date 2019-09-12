@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_components/src/pages/alert_page.dart';
-import 'package:flutter_components/src/pages/avatar_page.dart';
+
 import 'dart:core';
 
 import 'package:flutter_components/src/providers/menu_provider.dart';
