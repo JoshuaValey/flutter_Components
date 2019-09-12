@@ -25,6 +25,7 @@ Widget _lista() {
 //El future: debe estar enlazada a lo que estamos esperando. Osea el Future (cargarData)
     future: menuProvider.cargarData(),
 //La informacion que tendra por defecto mientras no se resuelve el future.
+//Validar data = null opcion 1.
     initialData: [],
     //
     builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapShot) {
@@ -42,6 +43,9 @@ Widget _lista() {
 ///Retorno: List<Widget> opciones.
 List<Widget> _listaItems(List<dynamic> data, BuildContext context) {
   final List<Widget> opciones = [];
+
+  //Validar data = null opcion 2.
+  //if(data == null) {return [];}
 
   data.forEach((opt) {
     final widgetTemp = ListTile(
