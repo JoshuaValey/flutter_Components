@@ -7,6 +7,7 @@ final Map<String, IconData> _icons = {
   'add_alert' /*     */ : Icons.add_alert,
   'accessibility' /* */ : Icons.accessibility,
   'folder_open' /*   */ : Icons.folder_open,
+  'donut_large' /*   */ : Icons.donut_large,
 };
 
 ///Voy a leer mi Map _icons, pidiendo como parametro
