@@ -8,6 +8,8 @@ class InputsPage extends StatefulWidget {
 
 class _InputsPageState extends State<InputsPage> {
   String _nombre = "";
+  String _email = "";
+  String _password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,10 @@ class _InputsPageState extends State<InputsPage> {
           Text('Todo esto es un input'),
           SizedBox(height: 5.0),
           _crearInput(),
+          Divider(),
+          _crearEmail(),
+          Divider(),
+          _crearPassword(),
           Divider(),
           _crearPersona(),
         ],
@@ -59,9 +65,61 @@ class _InputsPageState extends State<InputsPage> {
     );
   }
 
+  Widget _crearEmail() {
+    return TextField(
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        hintText: "Email",
+        hintStyle: TextStyle(color: Colors.blueGrey),
+        labelText: 'Email',
+        suffixIcon: Icon(Icons.alternate_email),
+        icon: Icon(Icons.email),
+      ),
+      onChanged: (valorInput) {
+        setState(() {
+          _email = valorInput;
+        });
+      },
+    );
+  }
+
+  Widget _crearPassword() {
+    return TextField(
+      //esconder el texto.
+      obscureText: true,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        hintText: "Password",
+        hintStyle: TextStyle(color: Colors.blueGrey),
+        labelText: 'Password',
+        suffixIcon: Icon(Icons.lock),
+        icon: Icon(Icons.lock_outline),
+      ),
+      onChanged: (valorInput) {
+        setState(() {
+          _password = valorInput;
+        });
+      },
+    );
+  }
+
   Widget _crearPersona() {
-    return ListTile(
-      title: Text('Nombre es: $_nombre'),
+    return Column(
+      children: <Widget>[
+        ListTile(
+          title: Text('Nombre es: $_nombre'),
+          subtitle: Text('Email es: $_email'),
+        ),
+        Divider(),
+        ListTile(
+          title: Text('La contraseña es: $_password'),
+        ),
+      ],
     );
   }
 }
