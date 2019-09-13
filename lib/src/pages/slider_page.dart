@@ -7,6 +7,7 @@ class SliderPage extends StatefulWidget {
 
 class _SliderPageState extends State<SliderPage> {
   double _valorSlider = 100.0;
+  bool _bloquearCheck = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +19,8 @@ class _SliderPageState extends State<SliderPage> {
           child: Column(
             children: <Widget>[
               _crearSlider(),
+              _crearCheckBox(),
+              _crearSwitch(),
               Expanded(child: _crearImagen()),
             ],
           ),
@@ -28,13 +31,64 @@ class _SliderPageState extends State<SliderPage> {
     return Slider(
       activeColor: Colors.indigoAccent,
       label: 'Tamaño del Slider',
-      //divisions: 20,
+      divisions: 100,
       value: _valorSlider,
       min: 100.0,
       max: 200.0,
-      onChanged: (valor) {
+      onChanged: _bloquearCheck
+          ? null
+          : (valor) {
+              setState(() {
+                _valorSlider = valor;
+              });
+            },
+    );
+  }
+
+  Widget _crearCheckBox() {
+    /*return Checkbox(
+      value: _bloquearCheck,
+      onChanged: (val) {
         setState(() {
-          _valorSlider = valor;
+          _bloquearCheck = val;
+        });
+      },
+    );*/
+
+    return CheckboxListTile(
+      value: _bloquearCheck,
+      title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[Text("Slider Block"), SizedBox(width: 15.0)]),
+      subtitle: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Text("Tap to block the slider"),
+            SizedBox(width: 15.0)
+          ]),
+      onChanged: (value) {
+        setState(() {
+          _bloquearCheck = value;
+        });
+      },
+    );
+  }
+
+  Widget _crearSwitch() {
+    return SwitchListTile(
+      value: _bloquearCheck,
+      title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[Text("Slider Block"), SizedBox(width: 15.0)]),
+      subtitle: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Text("Tap to block the slider"),
+            SizedBox(width: 15.0)
+          ]),
+      onChanged: (value) {
+        setState(() {
+          _bloquearCheck = value;
         });
       },
     );
