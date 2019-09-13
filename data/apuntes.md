@@ -49,3 +49,44 @@ Navigator.pushNamed(context, 'rutaString');
 ```
 
 * Cuando se llama a una ruta no definida en el "routes: " se llama a la propiedad "onGenerataRoute: "
+
+## Internaciolizacion de app. 
+* Agregar la dependencia en el pubspec.yaml. 
+```YAML
+dependencies:
+  flutter:
+    sdk: flutter
+    #here!
+  flutter_localizations:
+    sdk: flutter
+```
+
+[GlobalMaterialLocalizations](https://docs.flutter.io/flutter/flutter_localizations/GlobalMaterialLocalizations-class.html)
+
+[internationalization](https://flutter.dev/docs/development/accessibility-and-localization/internationalization#specifying-supportedlocales)
+
+* En el main (donde el MaterialApp) importar
+```dart
+import 'package:flutter_localizations/flutter_localizations.dart';
+```
+* Y pegar 
+```dart
+import 'package:flutter_localizations/flutter_localizations.dart';
+```
+* Colocar los delegados de localizacion en el main. 
+```dart
+localizationsDelegates: [
+   // ... app-specific localization delegate[s] here
+   GlobalMaterialLocalizations.delegate,
+   GlobalWidgetsLocalizations.delegate,
+ ],
+```
+* Colocar las variables soportadas en el main. 
+```dart
+ supportedLocales: [
+    const Locale('en'), // English
+    const Locale('he'), // Hebrew
+    const Locale('zh'), // Chinese
+    // ... other locales the app supports
+  ],
+  ```

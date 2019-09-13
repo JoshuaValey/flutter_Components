@@ -145,6 +145,8 @@ class _InputsPageState extends State<InputsPage> {
       //En que año comienza
       firstDate: new DateTime(2018),
       lastDate: new DateTime(2025),
+      //cambiar el idioma a local
+      locale: Locale.cachedLocale,
     );
 
     if (picked != null) {
