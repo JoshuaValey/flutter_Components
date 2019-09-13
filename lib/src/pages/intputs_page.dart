@@ -13,6 +13,9 @@ class _InputsPageState extends State<InputsPage> {
   String _password = "";
   //Para manejar el Input de Fecha.
   TextEditingController _inputFieldDateController = new TextEditingController();
+  //poderes para dropDownMenuItems.
+  List<String> _poderes = ['Poder1', 'Poder2', 'Poder3', 'Poder4', 'Poder5'];
+  String _opcionSeleccionada = "Poder1";
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +41,8 @@ class _InputsPageState extends State<InputsPage> {
           _crearPassword(),
           Divider(),
           _crearFecha(context),
+          Divider(),
+          _crearDropdown(),
           Divider(),
           _crearPersona(),
         ],
@@ -158,6 +163,39 @@ class _InputsPageState extends State<InputsPage> {
     }
   }
 
+  Widget _crearDropdown() {
+    return Row(
+      children: <Widget>[
+        Icon(Icons.select_all),
+        Expanded(child: SizedBox()),
+        Expanded(
+          child: DropdownButton(
+            value: _opcionSeleccionada,
+            items: getOpcionesDropDown(),
+            onChanged: (option) {
+              print(option);
+              setState(() {
+                _opcionSeleccionada = option;
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  List<DropdownMenuItem<String>> getOpcionesDropDown() {
+    List<DropdownMenuItem<String>> lista = new List();
+
+    _poderes.forEach((poder) {
+      lista.add(DropdownMenuItem(
+        child: Text(poder),
+        value: poder,
+      ));
+    });
+    return lista;
+  }
+
   Widget _crearPersona() {
     return Column(
       children: <Widget>[
@@ -168,6 +206,7 @@ class _InputsPageState extends State<InputsPage> {
         Divider(),
         ListTile(
           title: Text('La contraseña es: $_password'),
+          subtitle: Text('opcionSeleccionada es: $_opcionSeleccionada'),
         ),
       ],
     );
