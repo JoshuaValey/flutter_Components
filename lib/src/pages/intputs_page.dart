@@ -9,7 +9,10 @@ class InputsPage extends StatefulWidget {
 class _InputsPageState extends State<InputsPage> {
   String _nombre = "";
   String _email = "";
+  String _fecha = "";
   String _password = "";
+  //Para manejar el Input de Fecha.
+  TextEditingController _inputFieldDateController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +36,8 @@ class _InputsPageState extends State<InputsPage> {
           _crearEmail(),
           Divider(),
           _crearPassword(),
+          Divider(),
+          _crearFecha(context),
           Divider(),
           _crearPersona(),
         ],
@@ -106,6 +111,49 @@ class _InputsPageState extends State<InputsPage> {
         });
       },
     );
+  }
+
+  Widget _crearFecha(BuildContext context) {
+    return TextField(
+      //Evitar que se pueda copiar o pegar info.
+      enableInteractiveSelection: false,
+      //Como el <Element>.id de AndroidNative.
+      controller: _inputFieldDateController,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        hintText: "Fecha de nacimiento",
+        labelText: 'Fecha de nacimiento',
+        hintStyle: TextStyle(color: Colors.blueGrey),
+        suffixIcon: Icon(Icons.calendar_today),
+        icon: Icon(Icons.perm_contact_calendar),
+      ),
+      onTap: () {
+        //Evitar el foco del TextField.
+        FocusScope.of(context).requestFocus(new FocusNode());
+        _selectDate(context);
+      },
+    );
+  }
+
+//Cuando una funcion retorn un Future usar el async y el await.
+  _selectDate(BuildContext context) async {
+    DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: new DateTime.now(),
+      //En que año comienza
+      firstDate: new DateTime(2018),
+      lastDate: new DateTime(2025),
+    );
+
+    if (picked != null) {
+      setState(() {
+        _fecha = picked.toString();
+        //Como usar el ID de AndroidNative.
+        _inputFieldDateController.text = _fecha;
+      });
+    }
   }
 
   Widget _crearPersona() {
