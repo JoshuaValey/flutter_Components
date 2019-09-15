@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class ListPage extends StatefulWidget {
   @override
@@ -9,22 +10,28 @@ class _ListPageState extends State<ListPage> {
   ScrollController _scrollController = new ScrollController();
   List<int> _listaNumeros = new List();
   int _ultimoItem = 0;
+  bool _isLoading = false;
   @override
   void initState() {
     super.initState();
     _agregar10();
 
     _scrollController.addListener(() {
-      //Propiedades -> POSICION ACTUAL EN PIXELES Y MAXIMO DE PIXELES.
-
-      //Si la posicion actual es de n pixeles
-      //y el scroll maximo es de esos n pixeles
-      //-> Estamos al final de la lista
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        _agregar10();
+        //_agregar10();
+        _fetchData();
       }
     });
+  }
+
+  ///Cada que se ingresa a la pagina el scrollcontroller crea un nuevo listener
+  ///Debemos destruirlo para evitar fugas de memoria
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _scrollController.dispose();
   }
 
   @override
@@ -33,7 +40,12 @@ class _ListPageState extends State<ListPage> {
       appBar: AppBar(
         title: Text('List page'),
       ),
-      body: _crearLista(),
+      body: Stack(
+        children: <Widget>[
+          _crearLista(),
+          _crearLoading(),
+        ],
+      ),
     );
   }
 
@@ -60,6 +72,47 @@ class _ListPageState extends State<ListPage> {
       _listaNumeros.add(_ultimoItem);
       setState(() {});
     }
+  }
+
+  Future<Null> _fetchData() async {
+    _isLoading = true;
+    setState(() {
+      final Duration duration = new Duration(seconds: 2);
+      //function con () ejecuta en ese punto del codigo;
+      //function sin () referencia al metodo;
+      return new Timer(duration, _respuestaHTTP);
+    });
+  }
+
+  void _respuestaHTTP() {
+    _isLoading = false;
+    //Cuando se tiene la respuesta Http se puede mover el scroll
+    //porque ya se sabe que hay mas registros.
+    _scrollController.animateTo(
+      _scrollController.position.pixels + 100,
+      curve: Curves.fastOutSlowIn,
+      duration: Duration(milliseconds: 250),
+    );
+    setState(() {});
+    _agregar10();
+  }
+
+  Widget _crearLoading() {
+    if (_isLoading) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              CircularProgressIndicator(),
+            ],
+          ),
+          SizedBox(height: 25.0)
+        ],
+      );
+    } else
+      return Container();
   }
 }
 //https://picsum.photos/id/935/500/300
