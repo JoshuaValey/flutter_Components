@@ -50,18 +50,22 @@ class _ListPageState extends State<ListPage> {
   }
 
   Widget _crearLista() {
-    //Renderiza los elementos segun sea necesario.
-    return ListView.builder(
-      controller: _scrollController,
-      itemBuilder: (BuildContext context, int index) {
-        final imagen = _listaNumeros[index];
-        return FadeInImage(
-          placeholder: AssetImage("assets/jar-loading.gif"),
-          image: NetworkImage('https://picsum.photos/id/$imagen/500/300'),
-        );
-      },
-      //Cuantos elementos tiene la lista
-      itemCount: _listaNumeros.length,
+    //Debe envolver a un elemento Scrollable.
+    return RefreshIndicator(
+      onRefresh: _obtenerPage1,
+      //Renderiza los elementos segun sea necesario.
+      child: ListView.builder(
+        controller: _scrollController,
+        itemBuilder: (BuildContext context, int index) {
+          final imagen = _listaNumeros[index];
+          return FadeInImage(
+            placeholder: AssetImage("assets/jar-loading.gif"),
+            image: NetworkImage('https://picsum.photos/id/$imagen/500/300'),
+          );
+        },
+        //Cuantos elementos tiene la lista
+        itemCount: _listaNumeros.length,
+      ),
     );
   }
 
@@ -113,6 +117,21 @@ class _ListPageState extends State<ListPage> {
       );
     } else
       return Container();
+  }
+
+  Future<Null> _obtenerPage1() async {
+    //Simular Http Request -> Await.
+    final duration = new Duration(seconds: 3);
+
+    new Timer(duration, () {
+      //purgar la lista de numeros.
+      _listaNumeros.clear();
+      //quiero las siguientes imagenes.
+      _ultimoItem++; //No se resetea a 0 para que salgan imagenes nuevas.
+      //cargar 10 registros nuevos. 
+      _agregar10();
+    });
+    return Future.delayed(duration);
   }
 }
 //https://picsum.photos/id/935/500/300
