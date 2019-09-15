@@ -10,6 +10,7 @@ final Map<String, IconData> _icons = {
   'donut_large' /*   */ : Icons.donut_large,
   'input' /*         */ : Icons.input,
   'tune' /*          */ : Icons.tune,
+  'list' /*          */ : Icons.list,
 };
 
 ///Voy a leer mi Map _icons, pidiendo como parametro

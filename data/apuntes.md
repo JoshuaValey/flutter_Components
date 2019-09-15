@@ -90,3 +90,7 @@ localizationsDelegates: [
     // ... other locales the app supports
   ],
   ```
+
+  * Servicio de fotos lorem Picsum. 
+
+  [https://picsum.photos/](https://picsum.photos/)
